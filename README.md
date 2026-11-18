@@ -1,1 +1,19 @@
-# engenharia-software-fitcontrol
+FitControl - Sistema de gerenciamento para academias.
+
+    Integrantes
+        -Rick Dantas Medeiros
+        -Gabriel Ferreira 
+        -Rodrigo Kusano
+        
+    Objetivo
+        -Controlar alunos, planos, pagamentos e fichas de treino.
+
+    Tecnologias
+        -Java Spring Boot
+        -MySQL
+        -React
+        -Artefatos
+        -Documento de Requisitos
+        -Diagramas UML
+        -Wireframes
+        -Arquitetura
