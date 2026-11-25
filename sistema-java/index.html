@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login · FitControl</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="login">
+<div class="login">
+<section class="hero">
+<div class="logo">FitControl</div>
+<div><h2>Alunos, pagamentos, treinos e acesso em um só lugar.</h2><p style="margin-top:16px">Sistema de gestão para academias de pequeno e médio porte.</p></div>
+<small>Perfis: Aluno · Recepcionista · Professor · Gerente</small>
+</section>
+<section class="box">
+<h1>Entrar</h1>
+<form id="form-login" class="form" novalidate>
+<label class="field">E-mail<input name="email" type="email" placeholder="nome@email.com" autocomplete="email"></label>
+<label class="field">Senha<input name="senha" type="password" placeholder="••••••••" autocomplete="current-password"></label>
+<label class="field">Entrar como<select name="perfil"><option value="recepcionista">Recepcionista</option><option value="gerente">Gerente</option><option value="aluno">Aluno</option></select><span class="hint">Telas do Professor ainda não estão neste protótipo.</span></label>
+<button class="btn" type="submit">Entrar</button>
+<a id="esqueci" href="#" style="font-size:14px;font-weight:600">Esqueci minha senha</a>
+<div id="login-msg" class="msg" role="status" hidden></div>
+</form>
+</section>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>

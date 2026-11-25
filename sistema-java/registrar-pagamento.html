@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registrar pagamento · FitControl</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="pagamento">
+<div class="app">
+<aside class="side"><div class="brand">FitControl</div>
+<nav aria-label="Principal">
+<a href="cadastrar-aluno.html">Alunos</a>
+<a href="registrar-pagamento.html" aria-current="page">Pagamentos</a>
+<a href="catraca.html">Catraca</a>
+</nav></aside>
+<main class="main">
+<header class="top"><h1>Registrar pagamento</h1><div><span class="chip role">Recepcionista</span><a class="btn sec" href="index.html" style="display:inline-flex;align-items:center;text-decoration:none">Sair</a></div></header>
+<form id="form-busca" class="card" style="display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap">
+<label class="field" style="max-width:480px">Buscar aluno (nome ou CPF)<input name="q" type="text" placeholder="Ex.: Ana ou 529.982.247-25" autocomplete="off"></label>
+<button class="btn" type="submit">Buscar</button>
+</form>
+<div id="pg-msg" class="msg" role="status" hidden></div>
+<section id="resultado" class="card tablewrap" hidden>
+<div style="padding:20px 24px"><strong id="aluno-nome" style="font-size:16px"></strong></div>
+<table><thead><tr><th>Mensalidade</th><th>Vencimento</th><th>Valor</th><th>Situação</th><th></th></tr></thead><tbody id="mens"></tbody></table>
+</section>
+</main>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>

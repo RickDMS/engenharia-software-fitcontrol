@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status da catraca · FitControl</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="catraca">
+<div class="app">
+<aside class="side"><div class="brand">FitControl</div>
+<nav aria-label="Principal">
+<a href="cadastrar-aluno.html">Alunos</a>
+<a href="registrar-pagamento.html">Pagamentos</a>
+<a href="catraca.html" aria-current="page">Catraca</a>
+</nav></aside>
+<main class="main">
+<header class="top"><h1>Status da catraca</h1><div><span class="chip role">Recepcionista</span><a class="btn sec" href="index.html" style="display:inline-flex;align-items:center;text-decoration:none">Sair</a></div></header>
+<form id="form-catraca" class="card" style="display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap">
+<label class="field" style="max-width:360px">Identificação do aluno (CPF)<input name="cpf" type="text" placeholder="000.000.000-00" autocomplete="off"><span class="hint">Exemplos: 529.982.247-25 (regular) · 111.444.777-35 (inadimplente)</span></label>
+<button class="btn" type="submit">Simular acesso</button>
+</form>
+<div class="gate"><div id="gate-out" class="pane" role="status"><strong>Aguardando</strong><p>Aproxime a identificação.</p></div></div>
+<section class="card tablewrap"><table><thead><tr><th>Aluno</th><th>Data e hora</th><th>Resultado</th></tr></thead><tbody id="acessos"></tbody></table></section>
+</main>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
