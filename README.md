@@ -21,4 +21,3 @@ FitControl - Sistema de gerenciamento para academias.
 =======
 # AchadosPerdidos-
  Plataforma digital que centraliza e organiza todo o processo de achados e perdidos, desde o cadastro até a devolução do objeto.
->>>>>>> d8bc979 (Integra documentação do FitControl com repositório remoto)
