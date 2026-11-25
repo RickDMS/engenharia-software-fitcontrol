@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102a43">
+  <title>Reencontra | Achados e Perdidos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <a href="#" class="brand" data-page="dashboard">
+      <span class="brand-icon">R</span>
+      <span>reencontra<small>ACHADOS & PERDIDOS</small></span>
+    </a>
+
+    <div class="workspace">
+      <span class="workspace-icon">🏫</span>
+      <div>Campus Central<small>Instituição de ensino</small></div>
+      <span>⌄</span>
+    </div>
+
+    <p class="menu-label">MENU PRINCIPAL</p>
+    <nav class="navigation">
+      <button class="nav-link active" data-page="dashboard">
+        <span>▦</span> Visão geral
+      </button>
+      <button class="nav-link" data-page="objetos">
+        <span>▣</span> Todos os objetos
+      </button>
+      <button class="nav-link" data-page="perdidos">
+        <span>⌕</span> Objetos perdidos
+      </button>
+      <button class="nav-link" data-page="encontrados">
+        <span>✳</span> Objetos encontrados
+      </button>
+      <button class="nav-link" data-page="correspondencias">
+        <span>⇄</span> Correspondências
+        <span class="nav-count" id="matchCount">0</span>
+      </button>
+      <button class="nav-link" data-page="solicitacoes">
+        <span>☷</span> Solicitações
+      </button>
+    </nav>
+
+    <p class="menu-label">GERENCIAMENTO</p>
+    <nav class="navigation">
+      <button class="nav-link" data-page="historico">
+        <span>◷</span> Histórico
+      </button>
+      <button class="nav-link" data-page="relatorios">
+        <span>▤</span> Relatórios
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="help-card">
+        <span>💡</span>
+        <strong>Precisa de ajuda?</strong>
+        <p>Consulte as orientações para utilizar a plataforma.</p>
+        <button id="helpBtn">Ver orientações →</button>
+      </div>
+    <div class="profile">
+        <div class="avatar">AD</div>
+        <div><strong>Administrador</strong><small>Gestor do sistema</small></div>
+        <span class="profile-dots">•••</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn mobile-menu" id="menuBtn" aria-label="Abrir menu">☰</button>
+      <div class="breadcrumb">Reencontra <span>/</span> <strong id="breadcrumb">Visão geral</strong></div>
+      <div class="top-actions">
+        <span class="system-status"><i></i> Sistema operacional</span>
+        <button class="icon-btn" id="notificationBtn" aria-label="Notificações">♧</button>
+        <div class="top-avatar">AD</div>
+      </div>
+    </header>
+
+    <div class="content">
+      <section class="page active" id="page-dashboard">
+        <div class="welcome-row">
+          <div>
+            <p class="eyebrow" id="todayLabel">PAINEL DE CONTROLE</p>
+            <h1>Visão geral</h1>
+            <p class="subtitle">Acompanhe os objetos e ajude a conectar pessoas aos seus pertences.</p>
+          </div>
+          <button class="btn btn-primary" id="newObjectBtn">＋ Cadastrar objeto</button>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-top"><span>Total de registros</span><span class="stat-icon blue">▣</span></div>
+            <strong id="totalStat">0</strong>
+            <small>Todos os objetos cadastrados</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Objetos perdidos</span><span class="stat-icon orange">⌕</span></div>
+            <strong id="lostStat">0</strong>
+            <small>Aguardando localização</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Possíveis correspondências</span><span class="stat-icon purple">⇄</span></div>
+            <strong id="matchesStat">0</strong>
+            <small>Registros com similaridade</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Devolvidos</span><span class="stat-icon green">✓</span></div>
+            <strong id="returnedStat">0</strong>
+            <small>Objetos entregues ao proprietário</small>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel recent-panel">
+            <div class="panel-heading">
+              <div><h2>Registros recentes</h2><p>Últimos objetos cadastrados no sistema</p></div>
+              <button class="text-btn" data-goto="objetos">Ver todos →</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>OBJETO</th><th>LOCAL</th><th>DATA</th><th>STATUS</th></tr></thead>
+                <tbody id="recentRows"></tbody>
+              </table>
+            </div>
+            <div class="empty-state hidden" id="recentEmpty">
+              <span>📦</span><strong>Nenhum registro ainda</strong>
+              <p>Cadastre um objeto para começar.</p>
+            </div>
+          </section>
+
+          <section class="panel match-panel">
+            <div class="panel-heading">
+              <div><h2>Correspondências</h2><p>Possíveis conexões entre registros</p></div>
+              <span class="sparkle">✳</span>
+            </div>
+            <div id="dashboardMatches"></div>
+            <div class="empty-state hidden" id="matchesEmpty">
+              <span>🔎</span><strong>Nenhuma correspondência</strong>
+              <p>Novas conexões aparecerão aqui.</p>
+            </div>
+            <button class="btn btn-outline full-btn" data-goto="correspondencias">Ver correspondências</button>
+          </section>
+        </div>
+
+        <section class="panel quick-panel">
+          <div class="panel-heading"><div><h2>Acesso rápido</h2><p>O que você deseja fazer hoje?</p></div></div>
+          <div class="quick-grid">
+            <button class="quick-action" data-open-type="perdido"><span class="quick-icon orange">⌕</span><span><strong>Registrar perda</strong><small>Alguém perdeu um objeto</small></span><b>→</b></button>
+            <button class="quick-action" data-open-type="encontrado"><span class="quick-icon green">✳</span><span><strong>Registrar achado</strong><small>Um objeto foi encontrado</small></span><b>→</b></button>
+            <button class="quick-action" data-goto="correspondencias"><span class="quick-icon purple">⇄</span><span><strong>Ver correspondências</strong><small>Conferir possíveis conexões</small></span><b>→</b></button>
+          </div>
+        </section>
+      </section>
+
+      <section class="page" id="page-objetos">
+        <div class="welcome-row">
+          <div><p class="eyebrow">GERENCIAMENTO</p><h1>Todos os objetos</h1><p class="subtitle">Pesquise e gerencie os registros da instituição.</p></div>
+          <button class="btn btn-primary" id="newObjectBtn2">＋ Novo registro</button>
+        </div>
+        <div class="panel">
+          <div class="filters">
+            <div class="search-box"><span>⌕</span><input id="searchInput" placeholder="Buscar por nome, marca, local..." aria-label="Buscar objetos"></div>
+            <select id="categoryFilter" aria-label="Filtrar categoria"><option value="">Todas as categorias</option><option>Celular</option><option>Documento</option><option>Mochila</option><option>Chaves</option><option>Eletrônicos</option><option>Material escolar</option><option>Roupa</option><option>Acessórios</option><option>Outros</option></select>
+            <select id="statusFilter" aria-label="Filtrar status"><option value="">Todos os status</option><option value="Procurando">Procurando</option><option value="Encontrado">Encontrado</option><option value="Aguardando retirada">Aguardando retirada</option><option value="Devolvido">Devolvido</option></select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>OBJETO</th><th>TIPO</th><th>LOCAL</th><th>DATA</th><th>STATUS</th><th>AÇÕES</th></tr></thead>
+              <tbody id="objectsRows"></tbody>
+            </table>
+          </div>
+          <div class="empty-state hidden" id="objectsEmpty"><span>🔎</span><strong>Nenhum objeto encontrado</strong><p>Tente mudar os filtros ou cadastre um registro.</p></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-perdidos">
+        <div class="welcome-row"><div><p class="eyebrow">REGISTROS</p><h1>Objetos perdidos</h1><p class="subtitle">Itens que seus proprietários estão procurando.</p></div><button class="btn btn-primary" data-open-type="perdido">＋ Registrar perda</button></div>
+        <div class="panel"><div class="table-wrap"><table><thead><tr><th>OBJETO</th><th>LOCAL</th><th>DATA</th><th>STATUS</th><th>AÇÕES</th></tr></thead><tbody id="lostRows"></tbody></table></div><div id="lostEmpty" class="empty-state hidden"><span>🔎</span><strong>Nenhuma perda registrada</strong></div></div>
+      </section>
+
+      <section class="page" id="page-encontrados">
+        <div class="welcome-row"><div><p class="eyebrow">REGISTROS</p><h1>Objetos encontrados</h1><p class="subtitle">Itens localizados e registrados pela comunidade.</p></div><button class="btn btn-primary" data-open-type="encontrado">＋ Registrar achado</button></div>
+        <div class="panel"><div class="table-wrap"><table><thead><tr><th>OBJETO</th><th>LOCAL</th><th>DATA</th><th>STATUS</th><th>AÇÕES</th></tr></thead><tbody id="foundRows"></tbody></table></div><div id="foundEmpty" class="empty-state hidden"><span>📦</span><strong>Nenhum achado registrado</strong></div></div>
+      </section>
+
+      <section class="page" id="page-correspondencias">
+        <div class="welcome-row"><div><p class="eyebrow">MECANISMO INTELIGENTE</p><h1>Correspondências</h1><p class="subtitle">O sistema compara categoria, cor, marca, local e data.</p></div><button class="btn btn-outline" id="recalculateBtn">↻ Recalcular</button></div>
+        <div class="info-banner"><span>✳</span><div><strong>Como funciona?</strong><p>A pontuação é uma estimativa de semelhança. Toda correspondência precisa ser verificada por uma pessoa antes da devolução.</p></div></div>
+        <div id="matchesList" class="matches-list"></div>
+        <div id="allMatchesEmpty" class="empty-state hidden"><span>🧩</span><strong>Ainda não encontramos conexões</strong><p>Cadastre ao menos um objeto perdido e um encontrado com características semelhantes.</p><button class="btn btn-primary" data-open-type="perdido">Cadastrar objeto perdido</button></div>
+      </section>
+
+      <section class="page" id="page-solicitacoes">
+        <div class="welcome-row"><div><p class="eyebrow">ATENDIMENTO</p><h1>Solicitações</h1><p class="subtitle">Analise pedidos de recuperação e registre as decisões.</p></div></div>
+        <div id="requestsList" class="request-list"></div>
+        <div id="requestsEmpty" class="empty-state hidden"><span>📋</span><strong>Nenhuma solicitação pendente</strong><p>As solicitações de recuperação aparecerão aqui.</p></div>
+      </section>
+
+      <section class="page" id="page-historico">
+        <div class="welcome-row"><div><p class="eyebrow">AUDITORIA</p><h1>Histórico</h1><p class="subtitle">Acompanhe as movimentações registradas nesta sessão de dados.</p></div></div>
+        <div class="panel"><div id="historyList" class="history-list"></div><div id="historyEmpty" class="empty-state hidden"><span>◷</span><strong>Sem movimentações</strong></div></div>
+      </section>
+
+      <section class="page" id="page-relatorios">
+        <div class="welcome-row"><div><p class="eyebrow">ANÁLISE</p><h1>Relatórios</h1><p class="subtitle">Resumo dos registros e resultados do sistema.</p></div><button class="btn btn-primary" id="exportBtn">↓ Exportar CSV</button></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Total de objetos</span><span class="stat-icon blue">▣</span></div><strong id="reportTotal">0</strong></article>
+          <article class="stat-card"><div class="stat-top"><span>Encontrados</span><span class="stat-icon green">✳</span></div><strong id="reportFound">0</strong></article>
+          <article class="stat-card"><div class="stat-top"><span>Devolvidos</span><span class="stat-icon purple">✓</span></div><strong id="reportReturned">0</strong></article>
+          <article class="stat-card"><div class="stat-top"><span>Solicitações</span><span class="stat-icon orange">☷</span></div><strong id="reportRequests">0</strong></article>
+        </div>
+        <div class="panel report-panel"><h2>Distribuição dos registros</h2><div id="reportBars"></div><p class="muted">Os relatórios são calculados a partir dos dados salvos neste navegador.</p></div>
+      </section>
+
+      <footer class="footer">© 2026 Reencontra · Protótipo acadêmico <span>Feito para aproximar pessoas e seus pertences. ♡</span></footer>
+    </div>
+  </main>
+
+  <div class="modal-backdrop hidden" id="objectModal">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header"><div><p class="eyebrow">NOVO REGISTRO</p><h2 id="modalTitle">Cadastrar objeto</h2><p class="subtitle">Preencha os detalhes para ajudar na identificação.</p></div><button class="icon-btn" data-close="objectModal" aria-label="Fechar">✕</button></div>
+      <form id="objectForm">
+        <div class="form-grid">
+          <label class="field full">Tipo de registro <span>*</span><select id="objectType" required><option value="perdido">Objeto perdido</option><option value="encontrado">Objeto encontrado</option></select></label>
+          <label class="field">Nome do objeto <span>*</span><input id="objectName" required maxlength="80" placeholder="Ex.: Mochila esportiva"></label>
+          <label class="field">Categoria <span>*</span><select id="objectCategory" required><option value="">Selecione</option><option>Celular</option><option>Documento</option><option>Mochila</option><option>Chaves</option><option>Eletrônicos</option><option>Material escolar</option><option>Roupa</option><option>Acessórios</option><option>Outros</option></select></label>
+          <label class="field">Cor <span>*</span><input id="objectColor" required maxlength="40" placeholder="Ex.: Preto"></label>
+          <label class="field">Marca<input id="objectBrand" maxlength="60" placeholder="Ex.: Nike"></label>
+          <label class="field">Local <span>*</span><input id="objectLocation" required maxlength="100" placeholder="Ex.: Biblioteca"></label>
+          <label class="field">Data aproximada <span>*</span><input id="objectDate" type="date" required></label>
+          <label class="field full">Características adicionais<textarea id="objectDescription" rows="3" maxlength="600" placeholder="Descreva detalhes que ajudem a identificar o objeto."></textarea></label>
+          <label class="field full">Contato do responsável <input id="objectContact" maxlength="100" placeholder="E-mail ou telefone (opcional)"></label>
+          <label class="field full">Foto do objeto <input id="objectPhoto" type="file" accept="image/*"><small>Opcional. A imagem será armazenada localmente no navegador.</small></label>
+        </div>
+        <div class="form-note">🔒 Evite publicar números de documentos, senhas ou características secretas que serão usadas para comprovar a propriedade.</div>
+        <div class="modal-actions"><button type="button" class="btn btn-outline" data-close="objectModal">Cancelar</button><button type="submit" class="btn btn-primary">Salvar registro</button></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="detailModal">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <div class="modal-header"><div><p class="eyebrow">DETALHES DO REGISTRO</p><h2 id="detailTitle">Objeto</h2></div><button class="icon-btn" data-close="detailModal" aria-label="Fechar">✕</button></div>
+      <div id="detailContent"></div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="claimModal">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="claimTitle">
+      <div class="modal-header"><div><p class="eyebrow">RECUPERAÇÃO SEGURA</p><h2 id="claimTitle">Solicitar recuperação</h2><p class="subtitle">Informe como o responsável poderá entrar em contato.</p></div><button class="icon-btn" data-close="claimModal" aria-label="Fechar">✕</button></div>
+      <form id="claimForm">
+        <input type="hidden" id="claimObjectId">
+        <label class="field">Seu nome <span>*</span><input id="claimName" required maxlength="100" placeholder="Nome completo"></label>
+        <label class="field">Contato <span>*</span><input id="claimContact" required maxlength="100" placeholder="E-mail ou telefone"></label>
+        <label class="field">Por que você acredita que é seu? <span>*</span><textarea id="claimProof" required minlength="5" maxlength="800" rows="4" placeholder="Informe características que ajudem o responsável a verificar a propriedade."></textarea></label>
+        <p class="form-note">O pedido ficará aguardando análise. Não informe senhas nem dados financeiros.</p>
+        <div class="modal-actions"><button type="button" class="btn btn-outline" data-close="claimModal">Cancelar</button><button class="btn btn-primary" type="submit">Enviar solicitação</button></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>

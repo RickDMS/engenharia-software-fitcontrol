@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 FitControl - Sistema de gerenciamento para academias.
 
     Integrantes
@@ -17,3 +18,7 @@ FitControl - Sistema de gerenciamento para academias.
         -Diagramas UML
         -Wireframes
         -Arquitetura
+=======
+# AchadosPerdidos-
+ Plataforma digital que centraliza e organiza todo o processo de achados e perdidos, desde o cadastro até a devolução do objeto.
+>>>>>>> d8bc979 (Integra documentação do FitControl com repositório remoto)
